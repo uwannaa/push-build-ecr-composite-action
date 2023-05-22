@@ -1,4 +1,4 @@
-name: composite-push-ecr
+name: push-build-ecr-composite-action
 description: 'Push image to ECR repo'
 inputs:
       image-name:
