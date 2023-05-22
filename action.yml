@@ -1,0 +1,28 @@
+name: composite-push-ecr
+description: 'Push image to ECR repo'
+inputs:
+      image-name:
+        description: Name of the docker image
+        required: true
+      aws-region:
+        description: The code of the aws region
+        required: true
+      account-id:
+        description: ID of the account owner of the ECR repository
+        required: true
+      tag:
+        description: Tag for the image
+        required: true
+      repository:
+        description: Name of the ECR repository
+        required: true
+
+runs:
+  using: "composite"
+  steps:
+    - run: docker build -t ${{inputs.image-name}} .
+      shell: bash
+    - run:  docker tag ${{inputs.image-name}} ${{inputs.account-id}}.dkr.ecr.${{inputs.aws-region}}.amazonaws.com/${{inputs.repository}}:${{inputs.tag}}
+      shell: bash
+    - run: docker push ${{inputs.account-id}}.dkr.ecr.${{inputs.aws-region}}.amazonaws.com/${{inputs.repository}}:${{inputs.tag}}
+      shell: bash
