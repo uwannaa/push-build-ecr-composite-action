@@ -20,7 +20,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: docker build -t ${{inputs.image-name}} . -f Dockerfile.Dockerfile 
+    - run: docker build -t ${{inputs.image-name}} .
       shell: bash
     - run: docker tag ${{inputs.image-name}} ${{inputs.account-id}}.dkr.ecr.${{inputs.aws-region}}.amazonaws.com/${{inputs.repository}}:${{inputs.tag}}
       shell: bash
